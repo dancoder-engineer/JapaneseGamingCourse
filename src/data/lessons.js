@@ -41,10 +41,17 @@ const lessons = [
             extraExamples: [
                 {
                     title: "Tales of Hearts",
-                    box: "url goes here",
+                    box: "https://www.mobygames.com/images/covers/l/410532-tales-of-hearts-anime-movie-edition-nintendo-ds-front-cover.jpg",
                     wKanji: "みんな、油断するなよ！",
                     noKanji: "みんな、ゆだんするなよ！",
                     english: "Everyone! Don't let your guard down!"
+                },
+                {
+                    title: "Aqutallion",
+                    box: "http://www.videogameden.com/sfc/cover/aqt.jpg",
+                    wKanji: "",
+                    noKanji: "にょうぼが　どうしたって？ ふざけるな！",
+                    english: "What'd you do with my wife!? Don't screw with me!"
                 }
             ]
 
@@ -123,15 +130,15 @@ const lessons = [
             extraExamples: [
                 {
                     title: "Chrono Cross",
-                    box: "url goes here",
+                    box: "https://www.chronocompendium.com/images/wiki/5/59/Chrono_Cross_Japanese_box_art.jpg",
                     wKanji: "心細くて、か弱くて、かわいい 旅の娘が、同行してくれって言ってんだぜ？",
                     noKanji: "こころぼそくて、かよわくて、かわいい たびのむすめが、どうこうしてくれっていってんだぜ？",
                     english: "Are you saying you'll take along this helpless, weak, and cute traveling girl?"
                 },
 
                 {
-                    title: "Tales of Hearts",
-                    box: "url goes here",
+                    title: "Aqutallion",
+                    box: "http://www.videogameden.com/sfc/cover/aqt.jpg",
                     wKanji: "",
                     noKanji: "このまちを　ぜったい おそわれる　まえいじょうの きれいで　かっこいいまちに　するからね！",
                     english: "Let's make this town even more beautiful and cooler than ever before!fs"
