@@ -1,23 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import React from "react"
+import { Route, Switch } from "react-router-dom"
+import { lessons } from "./data/lessons.js"
+import MainMenu from "./components/MainMenu.js"
+import LessonHub from "./components/LessonHub.js"
 
 function App() {
+  console.log(lessons)
+  
+  const titles = lessons.map(i => { return {
+        id: i.id,
+        title: i.title,
+        cover: i.covers.front,
+        shortDescription: i.japaneseCopy.shortDescription
+      }
+
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p className="test">Dan's Japanese Page</p>
+    <Switch>
+      <Route exact path="/">
+          <MainMenu titles = {titles} />
+      </Route>
+      <Route path="/lesson/:id">
+          <LessonHub lessons = {lessons} />
+      </Route>
+    </Switch>
     </div>
   );
 }
