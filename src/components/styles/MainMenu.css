@@ -11,13 +11,13 @@
     border-radius: 5px;
     padding: 5px;
     width: 220px;
-    height: 220px;
+    height: 290px;
     display:inline-block;
 }
 
 .picDiv {
     width: 219px;
-    height: 155px;
+    height: 195px;
     display: flex;
     justify-content: center;
     align-items: center;

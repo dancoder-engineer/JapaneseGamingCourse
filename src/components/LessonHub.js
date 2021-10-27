@@ -1,5 +1,6 @@
 import React from "react";
 import GameCommentary from "./GameCommentary.js"
+import JapaneseLesson from "./JapaneseLesson.js"
 import './styles/Lesson.css';
 import { useParams, NavLink, Switch, Route } from "react-router-dom"
 
@@ -46,7 +47,9 @@ function LessonHub({lessons}) {
                     <Route path={gameLink}>
                           <GameCommentary gameCopy={lesson.gameCopy} screenshots={lesson.screenshots}/>
                     </Route>
-
+                    <Route path={japaneseLink}>
+                          <JapaneseLesson title={lesson.title} japaneseCopy={lesson.japaneseCopy}/>
+                    </Route>
 
                 </Switch>
             </div>
