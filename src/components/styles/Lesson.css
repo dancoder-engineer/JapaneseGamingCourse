@@ -146,3 +146,88 @@
 .vocTable {
     margin:auto;
 }
+
+
+.mainPagePic {
+    max-width:100%;
+    margin:auto;
+    display:block;
+}
+
+
+.picCard {
+    padding: 5px;
+    display:inline-block;
+    
+}
+
+
+
+.mainPageImgInDiv{
+    max-width:100%;
+    margin:auto;
+    display:block;
+}
+
+.gameDataPage {
+    padding: 5px;
+    display: grid;
+    grid-auto-columns: minmax(30px, auto);
+    grid-auto-rows: minmax(30px, auto);
+    border-radius: 3px;
+}
+
+.frontCover {
+    padding: 5px;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    display: flex;
+    justify-content: center;
+}
+
+.titleScreen {
+    padding: 5px;
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-column-end: span 1;
+    display: flex;
+    justify-content: center;
+}
+
+.backCover {
+    padding: 5px;
+    grid-row-start: 1;
+    grid-column-start: 3;
+    grid-column-end: span 1;
+    display: flex;
+    justify-content: center;
+}
+
+.releaseInfo {
+    padding: 10px;
+    grid-row-start: 2;
+    grid-column-start: 2;
+    grid-column-end: span 1;
+    
+    justify-content: center;
+}
+
+.otherPic1 {
+    padding:5px;
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-column-end: span 1;
+    display: flex;
+    justify-content: center;
+}
+
+
+.otherPic2 {
+    padding:5px;
+    grid-row-start: 2;
+    grid-column-start: 3;
+    grid-column-end: span 1;
+    display: flex;
+    justify-content: center;
+}

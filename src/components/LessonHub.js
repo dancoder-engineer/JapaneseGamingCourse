@@ -1,4 +1,5 @@
 import React from "react";
+import GameData from "./GameData.js"
 import GameCommentary from "./GameCommentary.js"
 import JapaneseLesson from "./JapaneseLesson.js"
 import './styles/Lesson.css';
@@ -42,13 +43,13 @@ function LessonHub({lessons}) {
             <div className="theLesson">
                 <Switch>
                     <Route path={mainLink}>
-                        <p>Main</p>
+                        <GameData pics={lesson.covers} info={lesson.info}/>
                     </Route>
                     <Route path={gameLink}>
                           <GameCommentary gameCopy={lesson.gameCopy} screenshots={lesson.screenshots}/>
                     </Route>
                     <Route path={japaneseLink}>
-                          <JapaneseLesson title={lesson.title} japaneseCopy={lesson.japaneseCopy}/>
+                          <JapaneseLesson japaneseCopy={lesson.japaneseCopy}/>
                     </Route>
 
                 </Switch>
