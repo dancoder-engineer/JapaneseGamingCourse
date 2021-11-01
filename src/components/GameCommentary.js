@@ -5,7 +5,7 @@ import './styles/Lesson.css';
 
 function GameCommentary({gameCopy, screenshots}){
    // console.log(gameCopy)
-    let paragraphs = gameCopy.map(i => <p key={i}>{i}</p>)
+    let paragraphs = gameCopy.map((i, index) => <p key={index}>{i}</p>)
     let screens = screenshots.map(i => <Screenshot screenshot={i} />)
 
     return (
