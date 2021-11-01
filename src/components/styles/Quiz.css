@@ -1,0 +1,80 @@
+.quizPage {
+    background-color: lightblue;
+    padding: 5px;
+    display: grid;
+    grid-auto-columns: 250px 1fr 250px;
+    grid-auto-rows: 100px 1fr 100px;
+    border-radius: 3px;
+}
+
+.questionNumber {
+    padding: 5px;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: span 1;
+    grid-row-end: span 1;
+}
+
+.kanjiKanaButton {
+    padding: 5px;
+    grid-column-start: 3;
+    grid-row-start: 1;
+    grid-column-end: span 1;
+    grid-row-end: span 1;
+}
+
+.quizQuestion {
+    background-color: greenyellow;
+    padding: 5px;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    grid-column-end: span 1;
+    grid-row-end: span 1;
+}
+
+.backButton {
+    padding: 5px;
+    grid-column-start: 1;
+    grid-row-start: 3;
+    grid-column-end: span 1;
+    grid-row-end: span 1;
+}
+
+.nextButton {
+    padding: 5px;
+    grid-column-start: 3;
+    grid-row-start: 3;
+    grid-column-end: span 1;
+    grid-row-end: span 1;
+}
+
+.submitButton {
+    padding: 5px;
+    grid-column-start: 2;
+    grid-row-start: 3;
+    grid-column-end: span 1;
+    grid-row-end: span 1;
+}
+
+
+
+.centeredText {
+    text-align:center;
+}
+
+.inputBox {
+    max-width:100%;
+    margin:auto;
+    display:block;
+}
+
+
+.unchosen{
+    background-color: deepskyblue;
+    text-align:center;
+}
+
+.chosen{
+    background-color: darkturquoise;
+    text-align:center;
+}
