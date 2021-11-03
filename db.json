@@ -7,7 +7,6 @@
       "paidHowFar": 1,
       "quizzes": [
         {
-          "quizId": 1,
           "mcScore": 88,
           "freeResponse": [
             {
@@ -34,7 +33,6 @@
       "paidHowFar": 1,
       "quizzes": [
         {
-          "quizId": 1,
           "mcScore": 38,
           "freeResponse": [
             {

@@ -11,7 +11,7 @@ import Register from "./components/Register.js"
 function App() {
 
   //json calls
-  //app, login
+  //app, login, register
 
   const url="http://localhost:2500/users/"
 
@@ -30,50 +30,6 @@ function App() {
     console.log(getUser)
   }
 
-  function addUser() {
-
-    if (tempo) {return 0}
-
-        const user1 = {
-          userName: "DanSensei",
-          password: "DanSensei",
-          email: "danseminara@yahoo.com",
-          paidHowFar: 1,
-          quizzes: [
-            {
-              quizId: 1,
-              mcScore: 88,
-              freeResponse: [
-                {
-                  question: "Translate to Japanese: That dress is ugly and expensive, so don't buy it!",
-                  answer: "あのドレスはダサくて高いから買うなよ！",
-                  noOfPeerGrades: 3,
-                  correctPeerGrades: 3
-                },
-
-                {
-                  question: "Translate to Japanese: The phone I'm buying tomorrow is easy to use.",
-                  answer: "明日買う携帯は使いやすいです。",
-                  noOfPeerGrades: 3,
-                  correctPeerGrades: 3
-                }
-              ]  
-            }
-          ]
-        }
-
-       
-
-        // fetch(url, {
-        //   method: 'POST',
-        //   headers: { 
-        //     'Content-Type': 'application/json',
-        //     accept: 'application/json' 
-        //   },
-        //   body: JSON.stringify(user1)
-        // })
-
-  }
 
 
 
@@ -81,7 +37,9 @@ function App() {
 
 
 
-
+function massacre() {
+ // fetch("http://localhost:2500/users/4", {method: 'DELETE'})
+}
 
 
 
@@ -97,8 +55,7 @@ function App() {
 
   return (
     <div className="top">
-      <p className="centeredText">Dan's Japanese Page</p>
-      <button onClick={addUser}>add the user</button>
+      <p className="centeredText" onClick={massacre}>Dan's Japanese Page</p>
     <Switch>
       <Route exact path="/">
           <MainMenu titles = {titles} paidHowFar={user.paidHowFar*5} />
@@ -113,7 +70,7 @@ function App() {
           <Login url ={url} getUserInfo={getUserInfo} />
       </Route>
       <Route path="/register">
-        <Register />
+        <Register url={url} />
       </Route>
     </Switch>
     </div>

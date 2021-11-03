@@ -34,3 +34,8 @@
 .centeredText {
     text-align:center;
 }
+
+.error {
+    text-align:center;
+    color:firebrick
+}
