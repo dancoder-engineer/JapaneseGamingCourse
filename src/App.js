@@ -38,6 +38,7 @@ function App() {
 
 
 function massacre() {
+  console.log(user)
  // fetch("http://localhost:2500/users/4", {method: 'DELETE'})
 }
 
@@ -64,7 +65,7 @@ function massacre() {
           <LessonHub lessons = {lessons} />
       </Route>
       <Route path="/quiz/:id">
-          <Quiz lessons = {lessons} />
+          <Quiz lessons={lessons} userName={user.userName} url={url} userId={user.id}/>
       </Route>
       <Route path="/login">
           <Login url ={url} getUserInfo={getUserInfo} />

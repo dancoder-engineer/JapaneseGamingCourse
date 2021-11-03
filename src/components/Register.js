@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
-import {useHistory} from "react-router-dom"
+import {useHistory, NavLink} from "react-router-dom"
+
 
 import './styles/MainMenu.css'
 
@@ -97,15 +98,8 @@ function Register({url}) {
 
     }
 
-    function checkUser() {
-        
-
-    }
 
 
-        useEffect(() => {
-        console.log(formData)
-    }, [formData])
 
     return(
         <div>
@@ -116,8 +110,10 @@ function Register({url}) {
                 <p className="centeredText">Email Address: <input id="email" onChange={e => handleChange(e)} /></p>
                 <p className="centeredText">Password: <input id="password1" type="password" onChange={e => handleChange(e)} /></p>
                 <p className="centeredText">Password: <input id="password2" type="password" onChange={e => handleChange(e)} /></p>
-                <br />
+                
                 <p className="centeredText"><button onClick={e => registerUser(e)}>Register</button></p>
+                <NavLink to="./login/"><p className="centeredText"><button>Back</button></p></NavLink>
+                <br />
             </form>
         </div>
     )

@@ -3,6 +3,7 @@ import './styles/MainMenu.css'
 import { NavLink, Switch, useHistory } from "react-router-dom"
 
 function Login({url, getUserInfo}) {
+
     
     let [up, setUp] = useState({
         userName: "",
@@ -40,10 +41,6 @@ function Login({url, getUserInfo}) {
 
     }
 
-    function newUser(){
-
-    }
-    
 
     return (
     <div>
@@ -56,7 +53,7 @@ function Login({url, getUserInfo}) {
         
         <p className="centeredText"><button onClick={e => tryToLogIn(e)}>Login</button></p>
         </form>
-        <NavLink to="./register/"><p className="centeredText"><button onClick={newUser}>Register</button></p></NavLink>
+        <NavLink to="./register/"><p className="centeredText"><button>Register</button></p></NavLink>
         <br />
         <br />
     </div>

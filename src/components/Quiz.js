@@ -3,9 +3,10 @@ import './styles/Quiz.css'
 import { useParams, NavLink } from "react-router-dom"
 import QuizQuestion from "./QuizQuestion.js"
 
-function Quiz({lessons}) {
+function Quiz({lessons, userName, url, userId}) {
 
-    
+    let userUrl = url+userId
+    console.log(userUrl)
     
     const params = useParams()
     let quizData = lessons.find(i => { return i.id === parseInt(params.id) * 5 }).quizData
@@ -19,7 +20,7 @@ function Quiz({lessons}) {
 
     let mcAnswers = quizData.multipleChoiceQuestions.map(i => i.correctChoice)
 
-    //console.log(mcAnswers)
+    console.log(quizData.openEndedQuestions)
 
     useEffect( () => {
         let tempAns=[]
@@ -116,6 +117,33 @@ function Quiz({lessons}) {
         if (right === 0) { ques += "s" }
         let gradeSpiel = `You got ${right} ${ques} right out of ${quizData.multipleChoiceQuestions.length}. That's ${right/quizData.multipleChoiceQuestions.length*100}%`
         document.querySelector("#grade").innerHTML=gradeSpiel
+
+        let freeResp = quizData.openEndedQuestions.map( (i, qno) => { return (
+           {
+                userName: userName,
+                id: [quizData.quizNo, qno+1],
+                question: i,
+                answer: answers[quizData.multipleChoiceQuestions.length+qno],
+                noOfPeerGrades: 0,
+                correctPeerGrades: 0
+           }
+        )
+        })
+        let quizResults = {
+            quizzes: {
+                id: quizData.quizNo,
+                mcScore: Math.floor(right/quizData.multipleChoiceQuestions.length*100),
+                freeResponse: freeResp
+            }
+          }
+
+       console.log(quizResults)
+
+       fetch(userUrl, {
+           method: 'PATCH',
+           headers: {'Content-Type': 'application/json'},
+           body: JSON.stringify(quizResults)
+       })
 
     }
     // <p className="centeredText">Question {questionNumber} of {noOfQuestions}</p>
