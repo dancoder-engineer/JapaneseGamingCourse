@@ -17,9 +17,13 @@ function Quiz({lessons}) {
     let [questionData, setQuestionData] = useState(quizData.multipleChoiceQuestions[0])
     let [answers, setAnswers] = useState([])
 
+    let mcAnswers = quizData.multipleChoiceQuestions.map(i => i.correctChoice)
+
+    //console.log(mcAnswers)
+
     useEffect( () => {
         let tempAns=[]
-        for(let i=0; i <noOfQuestions; i++) { tempAns.push(null) }
+        for(let i=0; i < noOfQuestions; i++) { tempAns.push(null) }
         setAnswers([...tempAns])
     }, [])
 
@@ -98,20 +102,34 @@ function Quiz({lessons}) {
          }
     }, [questionNumber])
 
-    function showData() {
-        console.log(questionData)
-    }
 
+
+
+
+    function gradeQuiz() {
+        let right=0
+        let ques="question"
+        for (let i=0; i < quizData.multipleChoiceQuestions.length; i++) {
+            if (mcAnswers[i] === answers[i]) { right += 1 }
+        }
+        if (right > 1) { ques += "s" }
+        if (right === 0) { ques += "s" }
+        let gradeSpiel = `You got ${right} ${ques} right out of ${quizData.multipleChoiceQuestions.length}. That's ${right/quizData.multipleChoiceQuestions.length*100}%`
+        document.querySelector("#grade").innerHTML=gradeSpiel
+
+    }
+    // <p className="centeredText">Question {questionNumber} of {noOfQuestions}</p>
 
     return (
         <div className="quizPage">
             <div className="questionNumber">
-                <p className="centeredText">Question {questionNumber} of {noOfQuestions}</p>
+                <br />
+                {useKanji ? <button onClick={changeKanji}>Get rid of the Kanji</button> : <button onClick={changeKanji}>Show me the Kanji</button>}
             </div>
 
+            
+
             <div className="kanjiKanaButton">
-                {useKanji ? <button onClick={changeKanji}>Get rid of the Kanji</button> : <button onClick={changeKanji}>Show me the Kanji</button>}
-                <br />
                 <br />
                 <NavLink to="../../">
                     <button>Return to Main Menu</button>
@@ -123,12 +141,17 @@ function Quiz({lessons}) {
                 <QuizQuestion questionData={questionData} useKanji={useKanji} questionType={questionType} questionNumber={questionNumber} handleChange={handleChange} answers={answers} />
             </div>
 
-
-
-
             <div className="backButton"><br /><button onClick={goBack}>Previous Question</button></div>
-            <div className="submitButton"><br /><button className="inputBox">Let's Get this Baby Graded!</button></div>
+            <div className="submitButton"><br /><button className="inputBox"  onClick={gradeQuiz}>Let's Get this Baby Graded!</button></div>
             <div className="nextButton"><br /><button onClick={goForward}>Next Question</button></div>
+
+
+
+
+
+            <div className="middleForDev">
+                <p className="centeredText" id="grade"></p>
+            </div>
 
         </div>
     )

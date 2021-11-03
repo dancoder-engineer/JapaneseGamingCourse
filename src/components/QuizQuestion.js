@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import './styles/Quiz.css'
 
 function QuizQuestion({questionData, useKanji, questionType, questionNumber, handleChange, answers}) {
@@ -46,10 +46,10 @@ function QuizQuestion({questionData, useKanji, questionType, questionNumber, han
 
 
 
-    if ( questionType === "multipleChoiceQuestions") {
+    if (questionType === "multipleChoiceQuestions") {
     return(
         <div>
-            <h3 className="centeredText">{questionData.Question}</h3>
+            <h3 className="centeredText">{questionNumber}. {questionData.Question}</h3>
             <div id="A" className="unchosen" onClick={e => handleChange(e)} >
                 <p id="A">Ａ。{choices[0]}</p>
             </div>
@@ -76,7 +76,7 @@ function QuizQuestion({questionData, useKanji, questionType, questionNumber, han
     else {
             return(
                 <div>
-                    <h3 className="centeredText">{questionData}</h3>
+                    <h3 className="centeredText">{questionNumber}. {questionData}</h3>
                     <input className="inputBox" id ="box" onChange={e => handleChange(e.target.value)} />
                 </div>
             )
