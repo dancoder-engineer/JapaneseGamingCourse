@@ -3,7 +3,7 @@ import './styles/Quiz.css'
 import { useParams, NavLink } from "react-router-dom"
 import QuizQuestion from "./QuizQuestion.js"
 
-function Quiz({lessons, userName, url, userId}) {
+function Quiz({lessons, userName, url, userId, user, updateUserInfo}) {
 
     let userUrl = url+userId
     console.log(userUrl)
@@ -129,20 +129,36 @@ function Quiz({lessons, userName, url, userId}) {
            }
         )
         })
-        let quizResults = {
-            quizzes: {
+
+
+
+
+        let quizzes = {...user.quizzes}
+
+
+        quizzes["quiz"+params.id] = {
+            
+                
+                
                 id: quizData.quizNo,
                 mcScore: Math.floor(right/quizData.multipleChoiceQuestions.length*100),
                 freeResponse: freeResp
-            }
-          }
+                }
+            
+          
 
-       console.log(quizResults)
-
+          let fullquizzes = {...user, quizzes}
+          
+       console.log(user)
+        
        fetch(userUrl, {
            method: 'PATCH',
            headers: {'Content-Type': 'application/json'},
-           body: JSON.stringify(quizResults)
+           body: JSON.stringify(fullquizzes)
+       })
+       .then(res => res.json())
+       .then(data => {
+        updateUserInfo(data)
        })
 
     }

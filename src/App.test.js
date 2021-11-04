@@ -7,7 +7,3 @@ test('renders learn react link', () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-
-.testt {
-  color: aqua;
-}
