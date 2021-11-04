@@ -41,7 +41,7 @@ function updateUserInfo(updatedUser) {
 
 function massacre() {
  // console.log(user)
- // fetch("http://localhost:2500/users/4", {method: 'DELETE'})
+  fetch("http://localhost:2500/users/4", {method: 'DELETE'})
 }
 
 

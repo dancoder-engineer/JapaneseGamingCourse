@@ -31,15 +31,18 @@ function MainMenuCard({titles, user}) {
             let noOfFreeResponse = user["quizzes"][quizId]["freeResponse"].length
             let rightFreeResponses = 0
             
-            for (let i in user["quizzes"][quizId]["freeResponse"]) {
+            for (let ques in user["quizzes"][quizId]["freeResponse"]) {
                 let percentage = 0
+                let i = user["quizzes"][quizId]["freeResponse"][ques]
                 if (i.noOfPeerGrades !== 0){
-                     percentage = i.correctPeerGrades/i.noOfPeerGrades * 50
+                    
+                     percentage = i.correctPeerGrades/i.noOfPeerGrades * 100
+                    if (percentage >= 50) { rightFreeResponses += 1 }
+                    
                 }
-                if (percentage >= 50) { rightFreeResponses += 1 }
             }
 
-            console.log(noOfFreeResponse)
+            //console.log(noOfFreeResponse)
             link = (
             <div className="quizData">
                 <br /><br />
@@ -47,7 +50,7 @@ function MainMenuCard({titles, user}) {
                 Multiple choice grade: {user["quizzes"][quizId]["mcScore"]}<br />
                 Free response questions: {rightFreeResponses}/{noOfFreeResponse} right.<br />
                    See below for details.</p>
-                <NavLink to={`/quiz/${titles.id / 5}/`}>Quiz No. {titles.id / 5}</NavLink>
+                <NavLink to={`/quiz/${titles.id / 5}/`}>Retake Quiz</NavLink>
                 <p>Warning: Retaking the quiz will erase all current records upon grading.</p>
             </div>
             )
