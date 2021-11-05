@@ -26,12 +26,17 @@ function QuizAnswers({answers, mcAnswers, quizData, allQuestions, useKanji}) {
         if (answers[place] === "D") { yourAnswer = i.choices[3][kanji] }
         if (answers[place] === null) { yourAnswer = "Not Attempted" }
 
+        let rightSpiel
+        if (rightAnswer === yourAnswer) { rightSpiel = "Correct! Excellent job!"}
+        else if (yourAnswer === "Not Attempted") { rightSpiel = "" }
+        else { rightSpiel = "Sorry, that's not right. Look at the right answer and see if you can see why it's right."}
+
         return(
         <div>
             <p id={place+1}>Question {place + 1}: {i.Question}<br />
             Correct Answer: {rightAnswer}<br />
-
-            Your Answer: {yourAnswer}
+            Your Answer: {yourAnswer}<br />
+            {rightSpiel}
             </p>
         </div>
     )})

@@ -7,7 +7,7 @@ function StudentInfo({loggedIn, user}) {
     let quizList = []
     
         for (let quiz in user.quizzes){
-            console.log(user.quizzes[quiz])
+            //console.log(user.quizzes[quiz])
             quizList.push(<StudentInfoQuizHistory quiz={user.quizzes[quiz]} />)
         }
     

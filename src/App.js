@@ -8,6 +8,7 @@ import Quiz from "./components/Quiz.js"
 import Login from "./components/Login.js"
 import Register from "./components/Register.js"
 import StudentInfo from "./components/StudentInfo.js"
+import PeerGrading from "./components/PeerGrading.js"
 
 function App() {
 
@@ -41,7 +42,8 @@ function updateUserInfo(updatedUser) {
 
 function massacre() {
  // console.log(user)
-  fetch("http://localhost:2500/users/4", {method: 'DELETE'})
+ //fetch("http://localhost:2500/users/4", {method: 'DELETE'})
+ history.push('/peer')
 }
 
 
@@ -75,9 +77,17 @@ function massacre() {
       <Route path="/register">
         <Register url={url} />
       </Route>
+
+      <Route path="/peer">
+        <PeerGrading url={url} />
+      </Route>
     </Switch>
     
-    <StudentInfo loggedIn={loggedIn} user={user}/>
+    <Switch>
+    <Route exact path="/">
+      <StudentInfo loggedIn={loggedIn} user={user}/>
+    </Route>
+    </Switch>
 
 
     </div>
