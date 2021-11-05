@@ -7,7 +7,7 @@ function StudentInfoQuizHistory({quiz}) {
 
     let freeResp = quiz.freeResponse.map(i => {
         if (i.noOfPeerGrades < 5) { return(
-            <p>Question: {i.question}<br />
+            <p key={i.question}>Question: {i.question}<br />
             Your answer: {i.answer}<br/>
             You can see whether this is correct or not once 5 students peer grade it. Currently only {i.noOfPeerGrades} students have graded it.
             </p>

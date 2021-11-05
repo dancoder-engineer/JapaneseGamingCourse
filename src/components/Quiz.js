@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react"
 import './styles/Quiz.css'
 import { useParams, NavLink } from "react-router-dom"
 import QuizQuestion from "./QuizQuestion.js"
+import QuizAnswers from "./QuizAnswers.js"
 
 function Quiz({lessons, userName, url, userId, user, updateUserInfo}) {
 
     let userUrl = url+userId
-    console.log(userUrl)
+    //console.log(userUrl)
     
     const params = useParams()
     let quizData = lessons.find(i => { return i.id === parseInt(params.id) * 5 }).quizData
@@ -17,10 +18,9 @@ function Quiz({lessons, userName, url, userId, user, updateUserInfo}) {
     let [questionType, setQuestionType] = useState("multipleChoiceQuestions")
     let [questionData, setQuestionData] = useState(quizData.multipleChoiceQuestions[0])
     let [answers, setAnswers] = useState([])
+    let [quizGoingOn, setQuizGoingOn] = useState(true)
 
     let mcAnswers = quizData.multipleChoiceQuestions.map(i => i.correctChoice)
-
-    console.log(quizData.openEndedQuestions)
 
     useEffect( () => {
         let tempAns=[]
@@ -149,7 +149,7 @@ function Quiz({lessons, userName, url, userId, user, updateUserInfo}) {
 
           let fullquizzes = {...user, quizzes}
           
-       console.log(user)
+      // console.log(user)
         
        fetch(userUrl, {
            method: 'PATCH',
@@ -159,41 +159,67 @@ function Quiz({lessons, userName, url, userId, user, updateUserInfo}) {
        .then(res => res.json())
        .then(data => {
         updateUserInfo(data)
+        setQuizGoingOn(!quizGoingOn)
        })
 
     }
     // <p className="centeredText">Question {questionNumber} of {noOfQuestions}</p>
 
-    return (
-        <div className="quizPage">
-            <div className="questionNumber">
+    let questionComponent = <QuizQuestion questionData={questionData} useKanji={useKanji} questionType={questionType} questionNumber={questionNumber} handleChange={handleChange} answers={answers} />
+    let backButton = <div><br /><button onClick={goBack}>Previous Question</button></div>
+    let submitButton = <div><br /><button className="inputBox"  onClick={gradeQuiz}>Let's Get this Baby Graded!</button></div>
+    let nextButton = <div><br /><button onClick={goForward}>Next Question</button></div>
+    let kanjiButton = (
+            <div>
                 <br />
                 {useKanji ? <button onClick={changeKanji}>Get rid of the Kanji</button> : <button onClick={changeKanji}>Show me the Kanji</button>}
             </div>
-
-            
-
-            <div className="kanjiKanaButton">
-                <br />
+    )
+    let backToMenuButton = (
+        <div>
+            <br />
                 <NavLink to="../../">
                     <button>Return to Main Menu</button>
                 </NavLink>
-            </div>
+        </div>
+    )
+
+    let quizAnswers = (
+        <div>
+            <QuizAnswers answers={answers} quizData={quizData} useKanji={useKanji}/>
+        </div>
+    )
+
+
+
+    function setgoingOn(){
+        setQuizGoingOn(!quizGoingOn)
+    }
+
+
+
+    return (
+        <div className="quizPage">
+            <div className="questionNumber">{quizGoingOn ? kanjiButton : quizAnswers}</div>
+
+            
+
+            <div className="kanjiKanaButton">{quizGoingOn ? backToMenuButton : null}</div>
 
 
             <div className="quizQuestion">
-                <QuizQuestion questionData={questionData} useKanji={useKanji} questionType={questionType} questionNumber={questionNumber} handleChange={handleChange} answers={answers} />
+                {quizGoingOn ? questionComponent : null}
             </div>
 
-            <div className="backButton"><br /><button onClick={goBack}>Previous Question</button></div>
-            <div className="submitButton"><br /><button className="inputBox"  onClick={gradeQuiz}>Let's Get this Baby Graded!</button></div>
-            <div className="nextButton"><br /><button onClick={goForward}>Next Question</button></div>
+            <div className="backButton">{quizGoingOn ? backButton : null}</div>
+            <div className="submitButton">{quizGoingOn ? submitButton : null}</div>
+            <div className="nextButton">{quizGoingOn ? nextButton : null}</div>
 
 
 
 
 
-            <div className="middleForDev">
+            <div className="middleForDev" onClick={setgoingOn}>
                 <p className="centeredText" id="grade"></p>
             </div>
 

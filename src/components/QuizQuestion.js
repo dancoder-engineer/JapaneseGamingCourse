@@ -48,7 +48,7 @@ function QuizQuestion({questionData, useKanji, questionType, questionNumber, han
 
     if (questionType === "multipleChoiceQuestions") {
     return(
-        <div>
+        <div className="questionDiv">
             <h3 className="centeredText">{questionNumber}. {questionData.Question}</h3>
             <div id="A" className="unchosen" onClick={e => handleChange(e)} >
                 <p id="A">Ａ。{choices[0]}</p>
@@ -65,6 +65,7 @@ function QuizQuestion({questionData, useKanji, questionType, questionNumber, han
             <div id="D" className="unchosen" onClick={e => handleChange(e)} >
                 <p id="D">Ｄ。{choices[3]}</p>
             </div>
+            <br />
         </div>
     )
     }
