@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import {useHistory, NavLink} from "react-router-dom"
-
+import './styles/Quiz.css'
 
 import './styles/MainMenu.css'
 
@@ -63,6 +63,7 @@ function Register({url}) {
             password: formData.password2,
             email: formData.email,
             paidHowFar: 1,
+            canBeGraded: false,
             quizzes: [
               
             ]

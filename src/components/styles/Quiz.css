@@ -98,3 +98,37 @@
     background-color: lightcoral;
     text-align:center;
 }
+
+.peerGrading {
+    border-style: solid;
+    padding: 5px;
+    display: grid;
+    grid-auto-columns: 2.5fr 1fr;
+    grid-auto-rows: 1fr;
+    border-radius: 3px;
+}
+
+.peerQuestion {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.peerQuestionChoice {
+    padding: 12px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.submitButton{
+    margin:auto;
+    display:block;
+}
+
+.error {
+    text-align:center;
+    color:firebrick
+}

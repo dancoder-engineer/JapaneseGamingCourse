@@ -79,7 +79,7 @@ function massacre() {
       </Route>
 
       <Route path="/peer">
-        <PeerGrading url={url} />
+        <PeerGrading url={url} currentUser={user}/>
       </Route>
     </Switch>
     
