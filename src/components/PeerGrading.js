@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
 
 function PeerGrading({url, currentUser}) {
 
     
+
+    const history = useHistory()
+
+    console.log(currentUser, url)
     let usersQuiz
     let frQuestions = []
     let toGrade = []
     let [parts, setParts] = useState([])
     let [gradingQuestions, setGradingQuestions] = useState([])
+    let [allUsers, SetAllUsers] = useState([])
 
     useEffect(() => {
     fetch(url)
@@ -18,6 +24,7 @@ function PeerGrading({url, currentUser}) {
 
 
     function processData(data) {
+            SetAllUsers(data)
             let useTheseQuestions = []
             usersQuiz = Object.keys(currentUser.quizzes).length
             usersQuiz -= 1
@@ -35,7 +42,7 @@ function PeerGrading({url, currentUser}) {
             }
             for (let i = 0; i < 7; i++){
                 let rando = (Math.floor(Math.random() * frQuestions.length))
-                if (useTheseQuestions.includes(frQuestions[rando])) {
+                if (useTheseQuestions.includes(frQuestions[rando]) || (frQuestions. noOfPeerGrades >= 5)) {
                     i-=1
                     continue
                  }
@@ -82,10 +89,7 @@ function PeerGrading({url, currentUser}) {
                     if (arrayOfRadios[0].checked === true) { eachChoice.push("Correct") }
                     else if (arrayOfRadios[1].checked === true) { eachChoice.push("Incorrect") }
                     else if (arrayOfRadios[2].checked === true) { eachChoice.push("skipped") }
-                    else { 
-                        document.querySelector(".error").innerHTML="Please make choices for all the questions before you submit."
-                        break
-                    }
+                    else { eachChoice.push("skipped") }
                     arrayOfRadios.shift()
                     arrayOfRadios.shift()
                     arrayOfRadios.shift()
@@ -93,16 +97,53 @@ function PeerGrading({url, currentUser}) {
                 }
                 console.log(eachChoice)
                 console.log(gradingQuestions)
+
+                for (let i = 0; i < gradingQuestions.length; i++) { update(eachChoice, i) }
+
+                currentUser.canBeGraded = true
+                let currentUrl = url + currentUser.id
+                fetch (currentUrl, {
+                    method: 'PATCH',
+                    headers: {'content-type': 'application/json'},
+                    body: JSON.stringify(currentUser)
+                })
+                .then ( history.push("../"))
             }
 
     
-            
+            function update(eachChoice, i) {
+                
+                let questionBeingGraded = gradingQuestions[i]
+                let questionUser = allUsers.find(i => i.userName === questionBeingGraded.userName )
+                let currentUrl = url + questionUser.id
+                let whichQuiz = 'quiz' + questionBeingGraded.id[0]
+
+
+
+                //let eachChoice=["Correct", 2] //
+                console.log(allUsers)
+
+                
+                if (eachChoice[i] !== "skipped") {questionUser["quizzes"][whichQuiz]["freeResponse"][questionBeingGraded.id[1]-1]["noOfPeerGrades"] += 1}
+                if (questionUser["quizzes"][whichQuiz]["freeResponse"][questionBeingGraded.id[1]-1]["noOfPeerGrades"] > 5) { questionUser["quizzes"][whichQuiz]["freeResponse"][questionBeingGraded.id[1]-1]["noOfPeerGrades"] = 5 }
+                else {
+                    if (eachChoice[i] === "Correct") { questionUser["quizzes"][whichQuiz]["freeResponse"][questionBeingGraded.id[1]-1]["correctPeerGrades"] += 1 }
+                }
+                console.log(questionUser)
+
+                fetch (currentUrl, {
+                    method: 'PATCH',
+                    headers: {'content-type': 'application/json'},
+                    body: JSON.stringify(questionUser)
+                })
+            }
 
         return(
             <div>
                     {parts} 
                      <br />
                      <button onClick={sumbitForms} className="submitButton">Submit</button>
+                     <button onClick={update} className="submitButton">Update</button>
                      <p className="error"></p>
                 <br />
                 <br />

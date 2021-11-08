@@ -146,7 +146,7 @@ function Quiz({lessons, userName, url, userId, user, updateUserInfo}) {
                 }
             
           
-
+          user.canBeGraded = false
           let fullquizzes = {...user, quizzes}
           
       // console.log(user)

@@ -46,6 +46,10 @@ function massacre() {
  history.push('/peer')
 }
 
+function directToPeer() {
+  history.push('/peer')
+ }
+
 
 
   const titles = lessons.map(i => { return {

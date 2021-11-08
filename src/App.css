@@ -45,3 +45,8 @@
 .top {
   background-color:thistle;
 }
+
+.centeredButton{
+  margin:auto;
+  display:block;
+}

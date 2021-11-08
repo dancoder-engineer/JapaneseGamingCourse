@@ -99,7 +99,7 @@ function Register({url}) {
 
     }
 
-
+    // <NavLink to="./login/"><p className="centeredText"><button>Back</button></p></NavLink>
 
 
     return(
@@ -113,7 +113,6 @@ function Register({url}) {
                 <p className="centeredText">Password: <input id="password2" type="password" onChange={e => handleChange(e)} /></p>
                 
                 <p className="centeredText"><button onClick={e => registerUser(e)}>Register</button></p>
-                <NavLink to="./login/"><p className="centeredText"><button>Back</button></p></NavLink>
                 <br />
             </form>
         </div>
