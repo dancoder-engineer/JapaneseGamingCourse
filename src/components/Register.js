@@ -63,7 +63,7 @@ function Register({url}) {
             password: formData.password2,
             email: formData.email,
             paidHowFar: 1,
-            canBeGraded: false,
+            canBeGraded: true,
             quizzes: [
               
             ]
@@ -99,7 +99,7 @@ function Register({url}) {
 
     }
 
-    // <NavLink to="./login/"><p className="centeredText"><button>Back</button></p></NavLink>
+    // 
 
 
     return(
@@ -111,7 +111,7 @@ function Register({url}) {
                 <p className="centeredText">Email Address: <input id="email" onChange={e => handleChange(e)} /></p>
                 <p className="centeredText">Password: <input id="password1" type="password" onChange={e => handleChange(e)} /></p>
                 <p className="centeredText">Password: <input id="password2" type="password" onChange={e => handleChange(e)} /></p>
-                
+                <NavLink to="/login"><p className="centeredText"><button>Back</button></p></NavLink>
                 <p className="centeredText"><button onClick={e => registerUser(e)}>Register</button></p>
                 <br />
             </form>

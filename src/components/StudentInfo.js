@@ -8,6 +8,8 @@ function StudentInfo({loggedIn, user}) {
     let quizList = []
     const history = useHistory()
 
+    console.log(user.canBeGraded)
+
     function directToPeer() {
         history.push('/peer')
        }

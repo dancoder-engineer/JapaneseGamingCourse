@@ -53,7 +53,7 @@ function Login({url, getUserInfo}) {
         
         <p className="centeredText"><button onClick={e => tryToLogIn(e)}>Login</button></p>
         </form>
-        <NavLink to="./register/"><p className="centeredText"><button>Register</button></p></NavLink>
+        <NavLink to="/register"><p className="centeredText"><button>Register</button></p></NavLink>
         <br />
         <br />
     </div>

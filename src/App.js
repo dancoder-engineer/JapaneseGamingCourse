@@ -46,9 +46,7 @@ function massacre() {
  history.push('/peer')
 }
 
-function directToPeer() {
-  history.push('/peer')
- }
+
 
 
 

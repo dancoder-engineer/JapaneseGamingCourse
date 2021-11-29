@@ -10,26 +10,23 @@ function PeerGrading({url, currentUser}) {
     console.log(currentUser, url)
     let usersQuiz
     let frQuestions = []
-    let toGrade = []
-    let [parts, setParts] = useState([])
-    let [gradingQuestions, setGradingQuestions] = useState([])
-    let [allUsers, SetAllUsers] = useState([])
+    let useTheseQuestions = []
+    let allUsers
+    let [data, setData] = useState(null)
 
     useEffect(() => {
     fetch(url)
         .then(res => res.json())
-        .then( data => processData(data))
+        .then(dat => setData(dat))
         }, [])
 
 
-
-    function processData(data) {
-            SetAllUsers(data)
-            let useTheseQuestions = []
+        function gatherQuestions() {
+            allUsers = data
             usersQuiz = Object.keys(currentUser.quizzes).length
             usersQuiz -= 1
             if (usersQuiz === 0) { usersQuiz = 1 }
-            console.log(currentUser)
+            
             for (let user of data) {
                if(!user.canBeGraded) { continue }
                  for (let quiz in user.quizzes) {
@@ -40,6 +37,7 @@ function PeerGrading({url, currentUser}) {
                      }
                  }
             }
+            
             for (let i = 0; i < 7; i++){
                 let rando = (Math.floor(Math.random() * frQuestions.length))
                 if (useTheseQuestions.includes(frQuestions[rando]) || (frQuestions. noOfPeerGrades >= 5)) {
@@ -49,9 +47,16 @@ function PeerGrading({url, currentUser}) {
                  useTheseQuestions.push(frQuestions[rando])
             }
 
-            console.log(useTheseQuestions)
-            setGradingQuestions(useTheseQuestions)
-            toGrade = useTheseQuestions.map((i, j) => { 
+            return useTheseQuestions
+        }
+
+
+
+        
+    function processData() {
+ 
+            
+            return gatherQuestions().map((i, j) => { 
                 //let name = "peerGrade" + j
                 //console.log(name)
                 return ( 
@@ -70,7 +75,7 @@ function PeerGrading({url, currentUser}) {
                           </div>
                 )})
 
-                    setParts([...toGrade])
+                    
                 
                     
 
@@ -82,7 +87,7 @@ function PeerGrading({url, currentUser}) {
         function sumbitForms(e) {
                 e.preventDefault()
                 let eachChoice=[]
-                let choices = document.querySelectorAll(".selectionForm input")
+                const choices = document.querySelectorAll(".selectionForm input")
                 let arrayOfRadios = [...choices]
                 let i = 0
                 while (arrayOfRadios[2]) {
@@ -95,52 +100,56 @@ function PeerGrading({url, currentUser}) {
                     arrayOfRadios.shift()
                     i+=3
                 }
-                console.log(eachChoice)
-                console.log(gradingQuestions)
+                
 
-                for (let i = 0; i < gradingQuestions.length; i++) { update(eachChoice, i) }
+                for (let i = 0; i < useTheseQuestions.length; i++) { update(eachChoice, i) }
 
                 currentUser.canBeGraded = true
                 let currentUrl = url + currentUser.id
-                fetch (currentUrl, {
-                    method: 'PATCH',
-                    headers: {'content-type': 'application/json'},
-                    body: JSON.stringify(currentUser)
-                })
-                .then ( history.push("../"))
+
+                patch(currentUrl, currentUser, true)
             }
 
     
             function update(eachChoice, i) {
                 
-                let questionBeingGraded = gradingQuestions[i]
-                let questionUser = allUsers.find(i => i.userName === questionBeingGraded.userName )
-                let currentUrl = url + questionUser.id
-                let whichQuiz = 'quiz' + questionBeingGraded.id[0]
-
-
-
-                //let eachChoice=["Correct", 2] //
-                console.log(allUsers)
-
+                const questionBeingGraded = useTheseQuestions[i]
+                const questionUser = allUsers.find(i => i.userName === questionBeingGraded.userName )
+                const currentUrl = url + questionUser.id
+                const whichQuiz = 'quiz' + questionBeingGraded.id[0]
                 
                 if (eachChoice[i] !== "skipped") {questionUser["quizzes"][whichQuiz]["freeResponse"][questionBeingGraded.id[1]-1]["noOfPeerGrades"] += 1}
                 if (questionUser["quizzes"][whichQuiz]["freeResponse"][questionBeingGraded.id[1]-1]["noOfPeerGrades"] > 5) { questionUser["quizzes"][whichQuiz]["freeResponse"][questionBeingGraded.id[1]-1]["noOfPeerGrades"] = 5 }
                 else {
                     if (eachChoice[i] === "Correct") { questionUser["quizzes"][whichQuiz]["freeResponse"][questionBeingGraded.id[1]-1]["correctPeerGrades"] += 1 }
                 }
-                console.log(questionUser)
 
-                fetch (currentUrl, {
+                patch(currentUrl, questionUser)
+            }
+
+
+
+
+
+
+            function patch(url, whatToPut, send=false) {
+                fetch (url, {
                     method: 'PATCH',
                     headers: {'content-type': 'application/json'},
-                    body: JSON.stringify(questionUser)
+                    body: JSON.stringify(whatToPut)
                 })
-            }
+                .then(() => {
+                    if (send) { history.push("../")}
+            })
+        }
+
+
+
+
 
         return(
             <div>
-                    {parts} 
+                    {data && processData()}
                      <br />
                      <button onClick={sumbitForms} className="submitButton">Submit</button>
                      <button onClick={update} className="submitButton">Update</button>
